@@ -1,0 +1,134 @@
+.gate-shell {
+  position: relative;
+  min-height: 100vh;
+  padding: 18px 18px 22px;
+  box-sizing: border-box;
+  background: radial-gradient(circle at 20% 0%, #fdf4e5 0, #e4ddff 45%, #d9d1ff 100%);
+}
+
+.gate-bg-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 80%, rgba(255, 246, 210, 0.5), transparent 60%),
+    radial-gradient(circle at 90% 20%, rgba(204, 190, 255, 0.6), transparent 60%);
+  opacity: 0.85;
+}
+
+.gate-header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 26px;
+}
+
+.gate-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #4b3f8e;
+  margin-bottom: 4px;
+}
+
+.gate-sub {
+  margin: 0;
+  font-size: 13px;
+  color: #595f76;
+}
+
+/* 中央门户 */
+.gate-main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.gate-portal {
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.gate-portal-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 20%, #ffffff, #bfaeff);
+  box-shadow: 0 24px 48px rgba(107, 93, 210, 0.58);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.gate-portal-ring {
+  border-radius: 50%;
+  border-style: solid;
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.gate-portal-ring.outer {
+  width: 80px;
+  height: 80px;
+  border-width: 4px;
+  border-color: rgba(94, 76, 187, 0.9);
+}
+
+.gate-portal-ring.inner {
+  width: 52px;
+  height: 52px;
+  border-width: 3px;
+  border-color: rgba(94, 76, 187, 0.55);
+}
+
+/* 下面两个选项 */
+.gate-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 520px;
+}
+
+.gate-option {
+  border-radius: 18px;
+  border: none;
+  text-align: left;
+  padding: 12px 16px;
+  cursor: pointer;
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.18);
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+}
+
+.gate-option.explore {
+  border-left: 4px solid #7b6fe0;
+}
+
+.gate-option.continue {
+  border-left: 4px solid #f0c56b;
+}
+
+.gate-option-title {
+  font-size: 15px;
+  color: #2f323a;
+  margin-bottom: 4px;
+}
+
+.gate-option-desc {
+  font-size: 12px;
+  color: #666a78;
+}
+
+@media (max-width: 600px) {
+  .gate-shell {
+    padding: 12px 12px 16px;
+  }
+
+  .gate-portal-circle {
+    width: 120px;
+    height: 120px;
+  }
+}

@@ -1,0 +1,36 @@
+.tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 54px;
+  background: #f7f7fa;
+  border-top: 1px solid #e2e2ee;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 10;
+}
+
+.tabbar-item {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  color: #9fa3b4;
+  font-size: 11px;
+}
+
+.tabbar-icon {
+  display: block;
+  font-size: 18px;
+}
+
+.tabbar-item.active,
+.tabbar-item.active .tabbar-label {
+  color: #667eea;
+}
+
+/* 让 NavLink 的 activeClassName 生效（React Router v6 用 isActive 改写） */
+.tabbar-item.active {
+  font-weight: 600;
+}

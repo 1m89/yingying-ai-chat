@@ -1,121 +1,372 @@
-.square-container {
+/* 整个页面的浅色莫兰迪配色，全部是纯色，不用渐变 */
+.character-square-page {
+  --cs-bg: #f5f5f7;
+  --cs-bg-soft: #eceef2;
+  --cs-card-bg: #ffffff;
+  --cs-border-soft: #dde0ea;
+  --cs-border-strong: #c2c6d4;
+  --cs-text-main: #2f323a;
+  --cs-text-sub: #666a78;
+  --cs-text-muted: #9fa3b4;
+  --cs-accent-blue: #8fa3bf;  /* 柔和蓝 */
+  --cs-accent-green: #9bb9a7; /* 柔和绿 */
+  --cs-accent-pink: #c7a7b8;
+  --cs-accent-purple: #a59fbe;
+  --cs-accent-orange: #c1a38a;
+
+  background-color: var(--cs-bg);
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20px;
 }
 
-.square-header {
+.character-square {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+  box-sizing: border-box;
+}
+
+/* 顶部：标题 + “无限制”按钮 */
+.cs-header {
   display: flex;
+  align-items: flex-end;
   justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  margin-bottom: 30px;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
-.square-header h1 {
-  color: white;
+.cs-header-main {
+  min-width: 0;
+}
+
+.cs-title {
+  margin: 0 0 4px;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--cs-text-main);
+}
+
+.cs-subtitle {
   margin: 0;
+  font-size: 13px;
+  color: var(--cs-text-sub);
 }
 
-.to-chat-btn {
-  padding: 12px 24px;
-  background: white;
-  color: #667eea;
-  text-decoration: none;
-  border-radius: 25px;
-  font-weight: bold;
-  transition: all 0.3s;
+.cs-header-right {
+  flex-shrink: 0;
 }
 
-.to-chat-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.filters {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-}
-
-.filter-btn {
-  padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.filter-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.filter-btn.active {
-  background: white;
-  color: #667eea;
-}
-
-.character-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.character-card {
-  background: white;
-  border-radius: 15px;
-  padding: 20px;
-  text-align: center;
-  transition: all 0.3s;
-}
-
-.character-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.character-avatar {
-  font-size: 60px;
-  margin-bottom: 15px;
-}
-
-.character-card h3 {
-  color: #333;
-  margin: 10px 0;
-}
-
-.character-tags {
-  display: flex;
+/* “无限制”开关 */
+.unlimited-toggle {
+  display: inline-flex;
+  align-items: center;
   gap: 8px;
-  justify-content: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background-color: var(--cs-bg-soft);
+  border: 1px solid var(--cs-border-soft);
+  cursor: pointer;
+  transition:
+    background-color 0.16s ease-out,
+    border-color 0.16s ease-out;
+}
+
+.unlimited-toggle-on {
+  background-color: #e0e4f2;
+  border-color: var(--cs-accent-blue);
+}
+
+.unlimited-label {
+  font-size: 12px;
+  color: var(--cs-text-sub);
+}
+
+.unlimited-toggle-on .unlimited-label {
+  color: var(--cs-text-main);
+}
+
+.unlimited-switch {
+  width: 30px;
+  height: 16px;
+  border-radius: 999px;
+  background-color: #c7cbd8;
+  padding: 2px;
+  box-sizing: border-box;
+}
+
+.unlimited-knob {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  transform: translateX(0);
+  transition: transform 0.16s ease-out;
+}
+
+.unlimited-toggle-on .unlimited-switch {
+  background-color: var(--cs-accent-blue);
+}
+
+.unlimited-toggle-on .unlimited-knob {
+  transform: translateX(12px);
+}
+
+/* 排序 Tab：推荐 / 最新 / 热度 */
+.cs-tabs-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.cs-tab {
+  border: none;
+  background-color: transparent;
+  padding: 4px 2px;
+  font-size: 13px;
+  color: var(--cs-text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition:
+    color 0.16s ease-out,
+    border-color 0.16s ease-out;
+}
+
+.cs-tab:hover {
+  color: var(--cs-text-sub);
+}
+
+.cs-tab-active {
+  color: var(--cs-text-main);
+  border-color: var(--cs-accent-blue);
+}
+
+/* 标签筛选 Chip */
+.filter-bar {
+  display: flex;
   flex-wrap: wrap;
-  margin: 15px 0;
+  gap: 8px;
+  margin: 8px 0 16px;
 }
 
-.tag {
-  background: #f0f0f0;
-  color: #667eea;
+.filter-chip {
+  border-radius: 999px;
   padding: 5px 12px;
-  border-radius: 12px;
-  font-size: 14px;
+  font-size: 12px;
+  border: 1px solid var(--cs-border-soft);
+  background-color: #f1f2f6;
+  color: var(--cs-text-sub);
+  cursor: pointer;
+  transition:
+    background-color 0.16s ease-out,
+    color 0.16s ease-out,
+    border-color 0.16s ease-out,
+    transform 0.14s ease-out;
 }
 
-.chat-btn {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 10px 25px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  text-decoration: none;
-  border-radius: 20px;
-  transition: all 0.3s;
+.filter-chip:hover {
+  background-color: #e6e8f0;
+  border-color: var(--cs-border-strong);
+  transform: translateY(-1px);
 }
 
-.chat-btn:hover {
-  transform: scale(1.05);
+.filter-chip-active {
+  background-color: #dbe3f1;
+  border-color: var(--cs-accent-blue);
+  color: var(--cs-text-main);
+}
+
+/* 卡片网格 */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* 角色卡片主体 */
+.role-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  background-color: var(--cs-card-bg);
+  border: 1px solid var(--cs-border-soft);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 0.16s ease-out,
+    box-shadow 0.16s ease-out,
+    border-color 0.16s ease-out,
+    background-color 0.16s ease-out;
+}
+
+.role-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--cs-border-strong);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.09);
+  background-color: #ffffff;
+}
+
+/* 封面区域 */
+.role-cover-wrapper {
+  position: relative;
+  height: 160px;
+  background-color: var(--cs-bg-soft);
+}
+
+.role-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.role-cover-placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+/* 头像覆盖在封面下缘 */
+.role-avatar-wrapper {
+  position: absolute;
+  left: 14px;
+  bottom: -18px;
+}
+
+.role-avatar-img,
+.role-avatar-fallback {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 2px solid #ffffff;
+}
+
+.role-avatar-img {
+  object-fit: cover;
+  background-color: #ffffff;
+}
+
+.role-avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* 文字信息区：角色名 + 标签 + 简介 */
+.role-card-main {
+  padding: 22px 14px 12px; /* 上面留出空间给头像 */
+}
+
+.role-name {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--cs-text-main);
+}
+
+/* 中间那一行标签 */
+.role-tags-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.role-tag-pill {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background-color: #f2f3f7;
+  border: 1px solid #e0e2ec;
+  font-size: 11px;
+  color: var(--cs-text-sub);
+}
+
+/* 最下面的简介 */
+.role-desc {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--cs-text-sub);
+}
+
+/* 无数据提示 */
+.empty-hint {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 32px 0;
+  font-size: 13px;
+  color: var(--cs-text-muted);
+}
+
+/* 主题色：莫兰迪蓝 / 绿 / 粉 / 紫 / 橘（都是纯色） */
+.theme-blue .role-cover-placeholder {
+  background-color: #c9d2e3;
+}
+
+.theme-blue .role-avatar-fallback {
+  background-color: #7c8caf;
+}
+
+.theme-green .role-cover-placeholder {
+  background-color: #c7d7cc;
+}
+
+.theme-green .role-avatar-fallback {
+  background-color: #8ba89a;
+}
+
+.theme-pink .role-cover-placeholder {
+  background-color: #dac7d1;
+}
+
+.theme-pink .role-avatar-fallback {
+  background-color: #b89aa9;
+}
+
+.theme-purple .role-cover-placeholder {
+  background-color: #c9c4da;
+}
+
+.theme-purple .role-avatar-fallback {
+  background-color: #9992b6;
+}
+
+.theme-orange .role-cover-placeholder {
+  background-color: #ded0c2;
+}
+
+.theme-orange .role-avatar-fallback {
+  background-color: #c1a38a;
+}
+
+/* 响应式：中小屏收紧一点 */
+@media (max-width: 768px) {
+  .character-square {
+    padding: 18px 12px 28px;
+  }
+
+  .cs-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .cs-title {
+    font-size: 20px;
+  }
+
+  .cs-subtitle {
+    font-size: 12px;
+  }
+
+  .card-grid {
+    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+
+  .role-card-main {
+    padding: 22px 12px 10px;
+  }
 }

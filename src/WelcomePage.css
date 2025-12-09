@@ -1,0 +1,209 @@
+.gate-back {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #5f6482;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+}
+
+/* 整体背景：柔和渐变 + 中心居中 */
+.welcome-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 20%, #f0f2ff 0, #f5f5f7 40%, #eceef6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景浮动色块（“云团”） */
+.welcome-orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(22px);
+  opacity: 0.55;
+  animation: floatOrb 16s ease-in-out infinite alternate;
+}
+
+.orb-1 {
+  width: 260px;
+  height: 260px;
+  background: #c9d2e3;
+  top: -80px;
+  left: -40px;
+}
+
+.orb-2 {
+  width: 220px;
+  height: 220px;
+  background: #dac7d1;
+  bottom: -100px;
+  right: -40px;
+  animation-delay: 4s;
+}
+
+.orb-3 {
+  width: 180px;
+  height: 180px;
+  background: #c7d7cc;
+  top: 50%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+  animation-delay: 8s;
+}
+
+@keyframes floatOrb {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(20px, -10px, 0);
+  }
+}
+
+/* 中央卡片 */
+.welcome-card {
+  max-width: 540px;
+  width: 100%;
+  background-color: #ffffffcc;
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+  padding: 0 20px 24px;
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(0.98);
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
+}
+
+.welcome-card--show {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* 顶部渐变条 + 轻微高光 */
+.welcome-header-bar {
+  position: relative;
+  margin: 0 -20px 16px;
+  padding: 14px 20px 12px;
+  border-radius: 20px 20px 0 0;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  overflow: hidden;
+}
+
+.welcome-header-shine {
+  position: absolute;
+  top: -40%;
+  left: -20%;
+  width: 60%;
+  height: 180%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.02),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: headerShine 7s ease-in-out infinite;
+}
+
+@keyframes headerShine {
+  0% {
+    transform: translateX(-100%);
+  }
+  35% {
+    transform: translateX(180%);
+  }
+  100% {
+    transform: translateX(180%);
+  }
+}
+
+.welcome-title {
+  position: relative;
+  margin: 0;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+/* 文本区域 */
+.welcome-text {
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #55596a;
+}
+
+/* 表单 */
+.welcome-form {
+  margin: 14px 0 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.welcome-input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid #dde0ea;
+  font-size: 14px;
+  background-color: #f9fafb;
+}
+
+.welcome-input:focus {
+  outline: none;
+  border-color: #8fa3bf;
+  background-color: #ffffff;
+}
+
+.welcome-button {
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #8fa3bf, #7c8caf);
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease-out,
+    box-shadow 0.15s ease-out,
+    filter 0.15s ease-out;
+}
+
+.welcome-button:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(103, 126, 191, 0.35);
+  filter: brightness(1.03);
+}
+
+.welcome-button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
+}
+
+.welcome-hint {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #9fa3b4;
+}
+
+/* 小屏适配 */
+@media (max-width: 600px) {
+  .welcome-card {
+    padding: 0 14px 20px;
+  }
+  .welcome-header-bar {
+    margin: 0 -14px 14px;
+    padding: 12px 14px 10px;
+  }
+}
