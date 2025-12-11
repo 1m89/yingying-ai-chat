@@ -1,532 +1,491 @@
-/* HomePage.css */
+/* HomePage.css - 萤梦间主页（v5.0 星云版） */
 
-/* ========= 整体背景：梦幻紫金渐变 ========= */
-.home-shell {
+/* ========================================
+   场景容器
+   ======================================== */
+.home-scene {
   position: relative;
   min-height: 100vh;
-  padding: 16px;
-  box-sizing: border-box;
-  border-radius: 22px;
   overflow: hidden;
-  background: 
-    radial-gradient(ellipse at 20% 0%, rgba(255, 245, 217, 0.8) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 100%, rgba(200, 180, 255, 0.6) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, #f3ebff 0%, #e2d9ff 50%, #d4c8f5 100%);
-  
+  display: flex;
+  flex-direction: column;
+  background: #0d0618;
+}
+
+/* ========================================
+   星云背景
+   ======================================== */
+.nebula-background {
+  position: absolute;
+  inset: 0;
+  background-image: url('/public/assets/星云.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+/* ========================================
+   萤火虫粒子层
+   ======================================== */
+.fireflies-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.firefly {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(
+    circle,
+    #ffe8a3 0%,
+    rgba(255, 232, 163, 0.9) 20%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  box-shadow: 0 0 12px 3px rgba(255, 232, 163, 0.8);
+  animation: firefly-float 8s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes firefly-float {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translate3d(
+      calc(-35px + 70px * 0.5),
+      calc(-45px + 90px * 0.5),
+      0
+    ) scale(1.4);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(
+      calc(-60px + 120px * 0.5),
+      calc(-80px + 160px * 0.5),
+      0
+    ) scale(0);
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   顶部Logo
+   ======================================== */
+.home-header {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 50px 20px 40px;
+}
+
+.home-logo {
+  margin: 0 0 10px;
+  font-size: 48px;
+  font-weight: 200;
+  letter-spacing: 12px;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #e8d4ff 35%,
+    #ffe8a3 70%,
+    #ffd580 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 25px rgba(255, 232, 163, 0.6));
+  animation: logo-breathe 5s ease-in-out infinite;
+}
+
+@keyframes logo-breathe {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(255, 232, 163, 0.5));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 35px rgba(255, 232, 163, 0.8));
+    transform: scale(1.02);
+  }
+}
+
+.home-subtitle {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+/* ========================================
+   传送门容器
+   ======================================== */
+.portal-container {
+  position: relative;
+  z-index: 10;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
-/* ========= 柔光背景层 ========= */
-.home-bg-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.6), transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(220, 200, 255, 0.5), transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(255, 250, 230, 0.3), transparent 60%);
-  opacity: 1;
-}
-
-/* ========= 装饰星星 ========= */
-.home-stars {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.home-star {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: radial-gradient(circle, #fff 0%, rgba(255, 230, 180, 0.8) 50%, transparent 100%);
-  border-radius: 50%;
-  animation: twinkle 3s ease-in-out infinite;
-}
-
-.home-star:nth-child(1) { top: 8%; left: 15%; animation-delay: 0s; }
-.home-star:nth-child(2) { top: 12%; left: 75%; animation-delay: 0.5s; width: 4px; height: 4px; }
-.home-star:nth-child(3) { top: 25%; left: 88%; animation-delay: 1s; }
-.home-star:nth-child(4) { top: 60%; left: 8%; animation-delay: 1.5s; width: 5px; height: 5px; }
-.home-star:nth-child(5) { top: 75%; left: 92%; animation-delay: 2s; width: 4px; height: 4px; }
-.home-star:nth-child(6) { top: 40%; left: 5%; animation-delay: 0.8s; }
-.home-star:nth-child(7) { top: 85%; left: 25%; animation-delay: 1.2s; width: 5px; height: 5px; }
-.home-star:nth-child(8) { top: 15%; left: 45%; animation-delay: 2.2s; width: 4px; height: 4px; }
-
-@keyframes twinkle {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.3); }
-}
-
-/* ========= 浮动云朵装饰 ========= */
-.home-cloud {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 50px;
-  filter: blur(2px);
-  animation: float-cloud 20s ease-in-out infinite;
-}
-
-.home-cloud::before,
-.home-cloud::after {
-  content: '';
-  position: absolute;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 50%;
-}
-
-.home-cloud-1 {
-  width: 80px;
-  height: 30px;
-  top: 10%;
-  left: -80px;
-  animation-duration: 25s;
-}
-
-.home-cloud-1::before {
-  width: 40px;
-  height: 40px;
-  top: -20px;
-  left: 15px;
-}
-
-.home-cloud-1::after {
-  width: 30px;
-  height: 30px;
-  top: -15px;
-  left: 45px;
-}
-
-.home-cloud-2 {
-  width: 60px;
-  height: 24px;
-  top: 30%;
-  left: -60px;
-  animation-duration: 30s;
-  animation-delay: 5s;
-}
-
-.home-cloud-2::before {
-  width: 30px;
-  height: 30px;
-  top: -15px;
-  left: 10px;
-}
-
-.home-cloud-2::after {
-  width: 24px;
-  height: 24px;
-  top: -10px;
-  left: 32px;
-}
-
-@keyframes float-cloud {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(calc(100vw + 100px)); }
-}
-
-/* ========= 固定尺寸的画布 ========= */
-.home-map {
+.portal-button {
   position: relative;
-  width: 960px;
-  height: 540px;
-  animation: fadeInUp 0.8s ease-out;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ========= 左上角：公告栏 ========= */
-.home-board {
-  position: absolute;
-  top: 40px;
-  left: 80px;
-  padding: 8px 20px;
-  border-radius: 14px;
-  border: 2px solid #f2cf7a;
-  background: linear-gradient(145deg, #fffaed, #f7e5b8);
-  cursor: pointer;
-  box-shadow: 
-    0 8px 20px rgba(170, 129, 52, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  font-size: 14px;
-  font-weight: 500;
-  color: #7b5f2e;
-  transition: all 0.3s ease;
-  animation: fadeInUp 0.8s ease-out 0.2s both;
-}
-
-.home-board:hover {
-  transform: translateY(-3px);
-  box-shadow: 
-    0 12px 28px rgba(170, 129, 52, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  background: linear-gradient(145deg, #fff, #faecc5);
-}
-
-.home-board:active {
-  transform: translateY(-1px);
-}
-
-/* 支架腿 */
-.home-board::before,
-.home-board::after {
-  content: '';
-  position: absolute;
-  bottom: -18px;
-  width: 4px;
-  height: 18px;
-  background: linear-gradient(to bottom, #c79a4a, #a67c35);
-  border-radius: 999px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.home-board::before { left: 16px; }
-.home-board::after { right: 16px; }
-
-/* ========= 公用节点样式 ========= */
-.home-node {
-  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: none;
+  gap: 24px;
   background: none;
+  border: none;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.home-node:hover {
-  transform: translateY(-5px);
+.portal-button:hover {
+  transform: translateY(-12px) scale(1.05);
 }
 
-.home-node:active {
-  transform: translateY(-2px);
+/* ========================================
+   SVG传送门
+   ======================================== */
+.portal-svg {
+  width: 220px;
+  height: 220px;
+  filter: drop-shadow(0 15px 50px rgba(168, 159, 190, 0.7));
+  transition: filter 0.4s ease;
 }
 
-.home-node-label {
-  max-width: 220px;
-  text-align: center;
+.portal-button:hover .portal-svg {
+  filter: drop-shadow(0 20px 60px rgba(168, 159, 190, 0.9));
 }
 
-.home-node-main {
-  font-size: 15px;
-  font-weight: 600;
-  color: #3b3d4a;
-  margin-bottom: 4px;
-  transition: color 0.3s ease;
-}
-
-.home-node:hover .home-node-main {
-  color: #5c4db1;
-}
-
-.home-node-sub {
-  font-size: 12px;
-  color: #777b8a;
-  line-height: 1.5;
-  transition: color 0.3s ease;
-}
-
-.home-node:hover .home-node-sub {
-  color: #6b6e7d;
-}
-
-/* ========= 中偏右：开始/继续旅程（紫色漩涡） ========= */
-.home-node-world {
-  top: 100px;
-  left: 580px;
-  animation: fadeInUp 0.8s ease-out 0.4s both;
-}
-
-/* 光球容器 */
-.home-world-circle {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: 
-    radial-gradient(circle at 30% 25%, #ffffff 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, #c9bdff, #9b8be8);
+/* ========================================
+   传送门标签
+   ======================================== */
+.portal-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 28px;
+  background: rgba(13, 6, 24, 0.75);
+  backdrop-filter: blur(25px);
+  border-radius: 50px;
+  border: 1.5px solid rgba(255, 232, 163, 0.35);
   box-shadow: 
-    0 0 40px rgba(155, 139, 232, 0.5),
-    0 0 80px rgba(155, 139, 232, 0.3),
-    0 24px 48px rgba(111, 96, 210, 0.4),
-    inset 0 -10px 30px rgba(94, 76, 187, 0.3);
+    0 12px 40px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 232, 163, 0.25);
+  transition: all 0.3s ease;
+}
+
+.portal-button:hover .portal-label {
+  background: rgba(13, 6, 24, 0.85);
+  border-color: rgba(255, 232, 163, 0.5);
+  box-shadow: 
+    0 16px 50px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 232, 163, 0.35),
+    0 0 30px rgba(255, 232, 163, 0.3);
+}
+
+.label-icon {
+  font-size: 22px;
+}
+
+.label-text {
+  text-align: left;
+}
+
+.label-main {
+  font-size: 20px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 4px;
+  letter-spacing: 2px;
+}
+
+.label-sub {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.5px;
+}
+
+/* ========================================
+   底部功能卡片
+   ======================================== */
+.bottom-actions {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 20px 40px;
+}
+
+.action-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 24px;
+  min-width: 160px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+}
+
+.action-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 15px 45px rgba(0, 0, 0, 0.5),
+    0 0 25px rgba(255, 232, 163, 0.25);
+}
+
+.card-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.card-content {
+  text-align: left;
+}
+
+.card-title {
+  font-size: 17px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 3px;
+  letter-spacing: 1px;
+}
+
+.card-subtitle {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ========================================
+   设置按钮
+   ======================================== */
+.settings-button {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 100;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
-  position: relative;
-  animation: glow-pulse 3s ease-in-out infinite;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
-@keyframes glow-pulse {
-  0%, 100% { 
-    box-shadow: 
-      0 0 40px rgba(155, 139, 232, 0.5),
-      0 0 80px rgba(155, 139, 232, 0.3),
-      0 24px 48px rgba(111, 96, 210, 0.4),
-      inset 0 -10px 30px rgba(94, 76, 187, 0.3);
-  }
-  50% { 
-    box-shadow: 
-      0 0 60px rgba(155, 139, 232, 0.7),
-      0 0 100px rgba(155, 139, 232, 0.4),
-      0 28px 56px rgba(111, 96, 210, 0.5),
-      inset 0 -10px 30px rgba(94, 76, 187, 0.3);
-  }
-}
-
-/* 漩涡效果 */
-.home-world-spiral {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 4px solid rgba(255, 255, 255, 0.9);
-  position: relative;
-  box-sizing: border-box;
-  animation: spiral-rotate 8s linear infinite;
-}
-
-.home-world-spiral::before {
-  content: '';
-  position: absolute;
-  inset: 8px;
-  border-radius: 50%;
-  border: 3px solid rgba(255, 255, 255, 0.7);
-  animation: spiral-rotate-reverse 6s linear infinite;
-}
-
-.home-world-spiral::after {
-  content: '';
-  position: absolute;
-  inset: 20px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  animation: spiral-rotate 4s linear infinite;
-}
-
-@keyframes spiral-rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes spiral-rotate-reverse {
-  from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
-}
-
-/* 漩涡中心的光点 */
-.home-world-center-dot {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: radial-gradient(circle, #fff 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
-  border-radius: 50%;
-  animation: center-pulse 2s ease-in-out infinite;
-}
-
-@keyframes center-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.5); opacity: 0.7; }
-}
-
-/* ========= 左中：工坊小屋 ========= */
-.home-node-workshop {
-  top: 280px;
-  left: 160px;
-  animation: fadeInUp 0.8s ease-out 0.6s both;
-}
-
-/* 房子主体 */
-.home-house-shape {
-  width: 100px;
-  height: 80px;
-  border-radius: 20px;
-  background: linear-gradient(180deg, #ffffff 0%, #f8f6ff 100%);
+.settings-button:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: scale(1.12) rotate(90deg);
   box-shadow: 
-    0 16px 32px rgba(15, 23, 42, 0.18),
-    0 4px 8px rgba(15, 23, 42, 0.1),
-    inset 0 2px 0 rgba(255, 255, 255, 0.8);
+    0 12px 35px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 232, 163, 0.3);
+}
+
+.settings-icon {
+  font-size: 24px;
+}
+
+/* ========================================
+   底部版本信息
+   ======================================== */
+.home-footer {
   position: relative;
-  margin-bottom: 10px;
-  transition: all 0.3s ease;
-}
-
-.home-node:hover .home-house-shape {
-  box-shadow: 
-    0 20px 40px rgba(15, 23, 42, 0.22),
-    0 8px 16px rgba(15, 23, 42, 0.12),
-    inset 0 2px 0 rgba(255, 255, 255, 0.8);
-}
-
-/* 屋顶 */
-.home-house-shape::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: -28px;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 60px solid transparent;
-  border-right: 60px solid transparent;
-  border-bottom: 32px solid #f0c56b;
-  filter: drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.1));
-}
-
-/* 门 */
-.home-house-shape::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 28px;
-  height: 38px;
-  background: linear-gradient(180deg, #e8dff5 0%, #d4c8ed 100%);
-  border-radius: 14px 14px 0 0;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* 工坊配色 */
-.home-house-shape.workshop {
-  background: linear-gradient(180deg, #fef9ed 0%, #fdf4e3 100%);
-}
-
-.home-house-shape.workshop::before {
-  border-bottom-color: #e8b845;
-}
-
-.home-house-shape.workshop::after {
-  background: linear-gradient(180deg, #f5e6c8 0%, #e8d4a8 100%);
-}
-
-/* 窗户 */
-.home-house-window {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  background: linear-gradient(135deg, #a8d4ff 0%, #7bb8f0 100%);
-  border-radius: 4px;
-  top: 20px;
-  box-shadow: 
-    inset 0 1px 2px rgba(255, 255, 255, 0.5),
-    0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.home-house-window.left { left: 16px; }
-.home-house-window.right { right: 16px; }
-
-/* ========= 右下：旅者小屋 ========= */
-.home-node-room {
-  top: 300px;
-  left: 620px;
-  animation: fadeInUp 0.8s ease-out 0.8s both;
-}
-
-.home-house-img {
-  width: 160px;
-  height: auto;
-  display: block;
-  filter: drop-shadow(0 20px 36px rgba(15, 23, 42, 0.25));
-  margin-bottom: 10px;
-  transition: all 0.3s ease;
-}
-
-.home-node:hover .home-house-img {
-  filter: drop-shadow(0 24px 44px rgba(15, 23, 42, 0.3));
-  transform: scale(1.02);
-}
-
-/* 备用小屋（无图片时显示） */
-.home-house-fallback {
-  width: 120px;
-  height: 100px;
-  position: relative;
-  margin-bottom: 10px;
-}
-
-.home-house-fallback-body {
-  width: 100%;
-  height: 70px;
-  background: linear-gradient(180deg, #ffe8e8 0%, #ffd4d4 100%);
-  border-radius: 20px;
-  position: absolute;
-  bottom: 0;
-  box-shadow: 
-    0 16px 32px rgba(15, 23, 42, 0.18),
-    inset 0 2px 0 rgba(255, 255, 255, 0.8);
-}
-
-.home-house-fallback-roof {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 70px solid transparent;
-  border-right: 70px solid transparent;
-  border-bottom: 45px solid #ff9b9b;
-  border-radius: 10px;
-}
-
-/* ========= 右下角测试版提示 ========= */
-.home-footer-hint {
-  position: fixed;
-  right: 20px;
-  bottom: 14px;
-  font-size: 12px;
-  color: #9b8fc4;
   z-index: 10;
-  padding: 6px 14px;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  animation: fadeInUp 0.8s ease-out 1s both;
+  padding: 0 0 20px;
+  text-align: center;
 }
 
-/* ========= 小屏适配 ========= */
-@media (max-width: 1024px) {
-  .home-map {
-    transform: scale(0.85);
-    transform-origin: center center;
-  }
+.footer-version {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 1.5px;
 }
 
+/* ========================================
+   响应式适配
+   ======================================== */
 @media (max-width: 768px) {
-  .home-shell {
-    border-radius: 0;
-    padding: 10px;
+  .home-header {
+    padding: 40px 20px 30px;
   }
 
-  .home-map {
-    transform: scale(0.65);
-    transform-origin: center center;
+  .home-logo {
+    font-size: 36px;
+    letter-spacing: 8px;
   }
-  
-  .home-footer-hint {
-    right: 10px;
-    bottom: 8px;
+
+  .home-subtitle {
     font-size: 11px;
+    letter-spacing: 3px;
+  }
+
+  .portal-svg {
+    width: 180px;
+    height: 180px;
+  }
+
+  .portal-label {
+    padding: 14px 24px;
+    gap: 10px;
+  }
+
+  .label-icon {
+    font-size: 20px;
+  }
+
+  .label-main {
+    font-size: 18px;
+  }
+
+  .label-sub {
+    font-size: 12px;
+  }
+
+  .bottom-actions {
+    gap: 16px;
+    padding: 0 16px 35px;
+  }
+
+  .action-card {
+    min-width: 145px;
+    padding: 14px 20px;
+    gap: 12px;
+  }
+
+  .card-icon {
+    font-size: 24px;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+
+  .card-subtitle {
+    font-size: 11px;
+  }
+
+  .settings-button {
+    width: 50px;
+    height: 50px;
+    bottom: 24px;
+    right: 24px;
+  }
+
+  .settings-icon {
+    font-size: 22px;
   }
 }
 
 @media (max-width: 480px) {
-  .home-map {
-    transform: scale(0.5);
+  .home-header {
+    padding: 35px 20px 25px;
+  }
+
+  .home-logo {
+    font-size: 32px;
+    letter-spacing: 6px;
+  }
+
+  .home-subtitle {
+    font-size: 10px;
+  }
+
+  .portal-container {
+    padding: 15px;
+  }
+
+  .portal-svg {
+    width: 160px;
+    height: 160px;
+  }
+
+  .portal-label {
+    padding: 12px 20px;
+    border-radius: 40px;
+  }
+
+  .label-icon {
+    font-size: 18px;
+  }
+
+  .label-main {
+    font-size: 17px;
+  }
+
+  .label-sub {
+    font-size: 11px;
+  }
+
+  .bottom-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 0 20px 30px;
+  }
+
+  .action-card {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+
+  .settings-button {
+    width: 48px;
+    height: 48px;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .settings-icon {
+    font-size: 20px;
+  }
+
+  .home-footer {
+    padding: 0 0 16px;
+  }
+}
+
+/* ========================================
+   触摸设备优化
+   ======================================== */
+@media (hover: none) and (pointer: coarse) {
+  .portal-button:active {
+    transform: translateY(-8px) scale(1.03);
+  }
+
+  .action-card:active {
+    transform: translateY(-4px);
+  }
+
+  .settings-button:active {
+    transform: scale(1.08) rotate(90deg);
   }
 }

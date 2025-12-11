@@ -1,88 +1,123 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './App.css';
+// src/ChatPage.jsx
+import { useState, useEffect, useRef } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import './ChatPage.css';
 
-function ChatPage() {
+export default function ChatPage() {
+  const { roleId } = useParams();
+  const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef(null);
 
-  const sendMessage = async () => {
-    if (!input.trim()) return;
+  // 模拟角色信息
+  const roleInfo = {
+    name: '温柔姐姐',
+    avatar: '👧',
+  };
 
-    const userMessage = { role: 'user', content: input };
-    setMessages([...messages, userMessage]);
-    setInput('');
-    setLoading(true);
-
-    try {
-      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-goog-api-key': 'AIzaSyApC5zcBgCNd4I0qt36LWMJgFDweBvgXuQ'
-        },
-        body: JSON.stringify({
-          contents: [...messages, userMessage].map(msg => ({
-            role: msg.role === 'user' ? 'user' : 'model',
-            parts: [{ text: msg.content }]
-          }))
-        })
-      });
-
-      const data = await response.json();
-      const aiMessage = { 
-        role: 'assistant', 
-        content: data.candidates[0].content.parts[0].text 
-      };
-      
-      setMessages(prev => [...prev, aiMessage]);
-    } catch (error) {
-      console.error('错误:', error);
-      const errorMessage = {
+  useEffect(() => {
+    // 初始消息
+    setMessages([
+      {
+        id: 1,
         role: 'assistant',
-        content: '😢 抱歉，出了点问题！可能是网络不稳定或者API额度用完了。请稍后再试~'
+        content: '你好呀，有什么想聊的吗？',
+        timestamp: new Date(),
+      },
+    ]);
+  }, []);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  const handleSend = async (e) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
+
+    const userMessage = {
+      id: Date.now(),
+      role: 'user',
+      content: input,
+      timestamp: new Date(),
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    // TODO: 这里接你的AI API
+    setTimeout(() => {
+      const aiMessage = {
+        id: Date.now() + 1,
+        role: 'assistant',
+        content: '这是AI的回复～（待接入真实API）',
+        timestamp: new Date(),
       };
-      setMessages(prev => [...prev, errorMessage]);
-    }
-    
-    setLoading(false);
+      setMessages(prev => [...prev, aiMessage]);
+      setIsLoading(false);
+    }, 1000);
   };
 
   return (
-    <div className="App">
-      <div className="chat-container">
-        <h1>💛 颖颖的AI聊天平台 💛</h1>
-        <Link to="/square" className="clear-btn">🏠 角色广场</Link>
+    <div className="chat-page">
+      {/* 顶栏 */}
+      <header className="chat-header">
         <button 
-          className="clear-btn" 
-          style={{right: '160px'}}
-          onClick={() => setMessages([])}
+          className="chat-back"
+          onClick={() => navigate(-1)}
         >
-          🗑️ 清空对话
+          ←
         </button>
-        
-        <div className="messages">
-          {messages.map((msg, i) => (
-            <div key={i} className={msg.role}>
+        <div className="chat-role-info">
+          <span className="chat-avatar">{roleInfo.avatar}</span>
+          <span className="chat-role-name">{roleInfo.name}</span>
+        </div>
+        <button className="chat-menu">⋮</button>
+      </header>
+
+      {/* 消息列表 */}
+      <main className="chat-messages">
+        {messages.map(msg => (
+          <div
+            key={msg.id}
+            className={`message ${msg.role === 'user' ? 'message-user' : 'message-ai'}`}
+          >
+            <div className="message-bubble">
               {msg.content}
             </div>
-          ))}
-          {loading && <div className="loading">克宝正在思考...</div>}
-        </div>
+          </div>
+        ))}
+        {isLoading && (
+          <div className="message message-ai">
+            <div className="message-bubble typing-indicator">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
+      </main>
 
-        <div className="input-area">
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-            placeholder="和克宝说点什么..."
-          />
-          <button onClick={sendMessage}>发送</button>
-        </div>
-      </div>
+      {/* 输入框 */}
+      <form className="chat-input-form" onSubmit={handleSend}>
+        <input
+          type="text"
+          className="chat-input"
+          placeholder="说点什么..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          disabled={isLoading}
+        />
+        <button 
+          type="submit" 
+          className="chat-send-btn"
+          disabled={!input.trim() || isLoading}
+        >
+          发送
+        </button>
+      </form>
     </div>
   );
 }
-
-export default ChatPage;

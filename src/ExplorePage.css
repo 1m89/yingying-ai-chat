@@ -1,188 +1,101 @@
-.explore-shell {
-  position: relative;
+/* src/ExplorePage.css */
+@import './theme.css';
+
+.explore-page {
+  padding: var(--space-xl) var(--space-lg);
   min-height: 100vh;
-  padding: 18px 18px 24px;
-  box-sizing: border-box;
-  background: radial-gradient(circle at 50% 0%, #efe7ff 0, #dcd3ff 40%, #c7c1f3 100%);
-  overflow: hidden;
 }
 
-/* 背景柔光 */
-.explore-bg-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 20% 80%, rgba(255, 246, 220, 0.5), transparent 55%),
-    radial-gradient(circle at 80% 20%, rgba(200, 220, 255, 0.4), transparent 55%);
-  opacity: 0.8;
-}
-
-/* 返回按钮 */
-.explore-back {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 2;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.9);
-  color: #5f6482;
-  font-size: 12px;
-  cursor: pointer;
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.18);
-}
-
-/* 标题区域 */
 .explore-header {
-  position: relative;
-  z-index: 1;
-  margin-left: 56px;
-  margin-bottom: 14px;
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+  margin-top: var(--space-2xl);
 }
 
 .explore-title {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
-  color: #3b3d4a;
-  margin-bottom: 4px;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
 }
 
-.explore-sub {
-  margin: 0;
-  font-size: 13px;
-  color: #666a78;
+.explore-subtitle {
+  font-size: 14px;
+  color: var(--color-text-secondary);
 }
 
-/* 主体：横向滑动带 */
-.explore-main {
-  position: relative;
-  z-index: 1;
-  margin-top: 10px;
+/* 角色网格 */
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* 整个条像一朵云，里面是不规则摆放的卡片 */
-.explore-strip {
-  display: flex;
-  gap: 32px;
-  overflow-x: auto;
-  padding: 30px 40px 40px;
-  scroll-snap-type: x mandatory;
-}
-
-.explore-strip::-webkit-scrollbar {
-  display: none;
-}
-
-/* 基础卡片样式 */
-.explore-card {
-  flex: 0 0 260px;
-  scroll-snap-align: center;
-  border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.28);
+.role-card {
+  padding: var(--space-lg);
   cursor: pointer;
-  overflow: hidden;
   display: flex;
-  flex-direction: column;
-  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+  gap: var(--space-lg);
+  border: none;
+  text-align: left;
+  transition: all var(--transition-base);
 }
 
-/* 封面区域（将来可换成真正封面图） */
-.explore-card-cover {
-  height: 150px;
-  background: radial-gradient(circle at 20% 0%, #ffffff, #b6c7ff);
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-  padding: 10px;
+.role-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
 }
 
-.explore-card-initial {
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  background-color: rgba(59, 61, 74, 0.92);
-  color: #ffffff;
+.role-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 28px;
+  font-weight: 600;
+  color: white;
+  flex-shrink: 0;
 }
 
-.explore-card-body {
-  padding: 10px 12px 12px;
+.role-info {
+  flex: 1;
+  min-width: 0;
 }
 
-.explore-card-name {
-  margin: 0 0 4px;
-  font-size: 15px;
-  color: #2f323a;
+.role-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
 }
 
-.explore-card-tags {
+.role-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  margin-bottom: 6px;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-sm);
 }
 
-.explore-tag {
-  font-size: 11px;
-  padding: 2px 6px;
-  border-radius: 999px;
-  background-color: #eef0ff;
-  color: #5a60a6;
-}
-
-.explore-card-desc {
-  margin: 0;
+.role-tag {
+  padding: 2px var(--space-sm);
+  border-radius: var(--radius-full);
+  background: rgba(107, 93, 211, 0.1);
+  color: var(--color-primary);
   font-size: 12px;
-  color: #666a78;
+}
+
+.role-desc {
+  font-size: 13px;
+  color: var(--color-text-secondary);
   line-height: 1.6;
 }
 
-/* hover 时轻微抬起，趋向于水平（减少旋转感不适） */
-.explore-card:hover {
-  transform: translateY(-10px) scale(1.02) rotate(0deg);
-  box-shadow: 0 22px 44px rgba(15, 23, 42, 0.36);
-}
-
-/* 关键：不规则悬浮 —— 用 nth-child 做不同偏移/旋转 */
-.explore-card.card-1 {
-  transform: translateY(10px) rotate(-5deg);
-}
-
-.explore-card.card-2 {
-  transform: translateY(-16px) rotate(3deg);
-}
-
-.explore-card.card-3 {
-  transform: translateY(4px) rotate(-2deg);
-}
-
-.explore-card.card-4 {
-  transform: translateY(-12px) rotate(4deg);
-}
-
-/* 可以继续加 card-5, card-6... */
-/* 这样在整体上就是一串左右环绕，但每张卡高度和角度都不一样，看起来像飘在空中 */
-
-@media (max-width: 600px) {
-  .explore-shell {
-    padding: 12px 10px 18px;
-  }
-
-  .explore-header {
-    margin-left: 46px;
-  }
-
-  .explore-card {
-    flex: 0 0 230px;
-  }
-
-  .explore-card-cover {
-    height: 130px;
+@media (max-width: 768px) {
+  .explore-grid {
+    grid-template-columns: 1fr;
   }
 }
